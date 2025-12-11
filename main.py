@@ -14,12 +14,13 @@ class BankaHesabi:
         if miktar > self.bakiye:
             self.hareketler.append(f"REDDEDİLEN CEKİM : -{miktar} TL (Yetersiz Bakiye)")
             print(f"HATA : {self.isim} hesanbinda yeterli miktarda para bulunmamaktadir")
+            return False
         else :    
             self.bakiye -= miktar
             self.hareketler.append(f"CEKİLEN : -{miktar} TL")
             print(f'Sistem : {self.isim} hesabindan {miktar} para cekildi')
-    
-    
+            return tuple
+        
     def bilgi_ver(self):
         print(f"--- HESAP BİLGİSİ ---\nSayın {self.isim}, bakiyeniz: {self.bakiye} TL\n---------------------")
 
@@ -28,12 +29,12 @@ class BankaHesabi:
         print("--------------------\n")
         
     def transfer_et(self, alici_hesap, miktar):
-        if miktar > self.bakiye:
-            print(f"HATA : {self.isim} hesanbinda yeterli miktarda para bulunmamaktadir")
-        else:
-            self.para_cek(miktar)
+        if self.para_cek(miktar):
             alici_hesap.para_yatir(miktar)
             print(f'Sistem : {self.isim} hesabindan {alici_hesap.isim} hesabına {miktar} para gönderildi')
+        else:
+            print(f"HATA : {self.isim} hesanbinda yeterli miktarda para bulunmamaktadir")
+            
     
 hesap1 = BankaHesabi("Aras", 1000)
 hesap2 = BankaHesabi("Tayfun", 1000)
