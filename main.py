@@ -23,3 +23,4 @@ hesap1 = BankaHesabi("Aras", 1000)
 hesap1.para_yatir(500)
 hesap1.para_cek(1300)
 hesap1.bilgi_ver()
+hesap1.para_cek(2000) # Bakalım bakiye yetecek mi?
