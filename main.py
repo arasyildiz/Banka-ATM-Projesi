@@ -19,7 +19,7 @@ class BankaHesabi:
             self.bakiye -= miktar
             self.hareketler.append(f"CEKİLEN : -{miktar} TL")
             print(f'Sistem : {self.isim} hesabindan {miktar} para cekildi')
-            return tuple
+            return True
         
     def bilgi_ver(self):
         print(f"--- HESAP BİLGİSİ ---\nSayın {self.isim}, bakiyeniz: {self.bakiye} TL\n---------------------")
@@ -35,10 +35,22 @@ class BankaHesabi:
         else:
             print(f"HATA : {self.isim} hesanbinda yeterli miktarda para bulunmamaktadir")
             
-    
-hesap1 = BankaHesabi("Aras", 1000)
-hesap2 = BankaHesabi("Tayfun", 1000)
-hesap1.transfer_et(hesap2, 200)
 
-hesap1.bilgi_ver()
-hesap2.bilgi_ver()
+class VadeliHesap(BankaHesabi):
+    def __init__(self, sahip_ismi, baslangic_parasi, faiz_orani):
+        super().__init__(sahip_ismi, baslangic_parasi)
+        self.faiz_orani = faiz_orani
+
+
+        
+    def faiz_islet(self):
+        gelen_faiz = (self.bakiye * self.faiz_orani / 100)   
+        self.bakiye += gelen_faiz
+        self.hareketler.append(f"FAİZ GELİRİ: +{gelen_faiz} TL (%{self.faiz_orani})")
+        print(f"Sistem: Faiz işletildi. Kazanılan: {gelen_faiz} TL")
+        
+        
+vadeli1 = VadeliHesap("Aras Vadeli", 1000, 10)
+vadeli1.para_yatir(500) 
+vadeli1.faiz_islet()
+vadeli1.bilgi_ver()
